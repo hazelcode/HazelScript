@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using HazelScript.Exceptions;
 
 namespace HazelScript.Lang;
@@ -91,6 +92,8 @@ public class CodeReader {
         string[] lines = script;
         if(hasCompletePreamble){
             string[] linesWithoutPreamble = RemovePreambleBlock(script);
+            Types t = new Types();
+            string json = JsonSerializer.Serialize<Types>(t);
         }
     }
 }
