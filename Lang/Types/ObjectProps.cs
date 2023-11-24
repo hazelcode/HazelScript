@@ -1,4 +1,4 @@
-namespace HazelScript.Lang;
+namespace HazelScript.Lang.Types
 
 public class ObjectProps {
     public bool isFun { get; set; }

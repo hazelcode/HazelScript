@@ -1,4 +1,4 @@
-namespace HazelScript.Lang;
+namespace HazelScript.Lang.Types;
 
 public class ObjectCatcher {
     public ObjectProps properties { get; set; }
