@@ -8,14 +8,13 @@ public class Imports {
     public string GetReference(string reference){
         string[] keys = imports.Keys.ToArray<String>();
         string[] values = imports.Values.ToArray<String>();
-        string ret = null!;
         if(keys.Length > 0 && values.Length > 0)
         if(imports.ContainsKey(reference)){
             for(int i = 0; i < keys.Length; i++){
-                if(keys[i] == reference && values.Length > i) ret = values[i];
+                if(keys[i] == reference && values.Length > i) return values[i];
             }
         }
-        return ret;
+        return null!;
     }
     public string GetFromLine(string line){
         string[] parts = line.Split(" ");

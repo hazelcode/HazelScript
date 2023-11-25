@@ -11,7 +11,7 @@ public class CodeReader {
         this.file = file;
     }
     public string[] SeparateLines(){
-        string[] lines = File.ReadAllLines(this.file);
+        string[] lines = File.ReadAllLines(file);
         return lines;
     }
     public int CountLines(string[] script){
@@ -19,37 +19,40 @@ public class CodeReader {
     }
     public bool DetectPreambleStart(string[] script){
         string[] lines = script;
-        bool detected = false;
         for(int i = 0; i < lines.Length; i++){
-            if(lines[i] == "#preamble") detected = true;
-            if(i == (lines.Length-1) && detected == false) return false;
+            if(lines[i] == "#preamble"){
+                return true;
+            }
         }
-        return detected;
+        return false;
     }
     public bool DetectPreambleEnd(string[] script){
         string[] lines = script;
-        bool detected = false;
         for(int i = 0; i < lines.Length; i++){
-            if(lines[i] == "#endpreamble") detected = true;
-            if(i == (lines.Length-1) && detected == false) return false;
+            if(lines[i] == "#endpreamble"){
+                return true;
+            }
         }
-        return detected;
+        return false;
     }
     public int GetPreambleStartDelimitation(string[] script){
         string[] fileLines = script;
-        int pos = 0;
         for(int i = 0; i < fileLines.Length; i++){
-            if(fileLines[i] == "#preamble") pos = i+1;
+            if(fileLines[i] == "#preamble"){
+                return i+1;
+            }
         }
-        return pos;
+        return 1;
     }
     public int GetPreambleEndDelimitation(string[] script){
         string[] fileLines = script;
         int pos = 0;
         for(int i = 0; i < fileLines.Length; i++){
-            if(fileLines[i] == "#endpreamble") pos = i+1;
+            if(fileLines[i] == "#endpreamble"){
+                return i+1;
+            }
         }
-        return pos;
+        return 1;
     }
     public bool HasLogicalPreambleDelimitations(string[] script){
         if(GetPreambleStartDelimitation(script) < GetPreambleEndDelimitation(script)) return true;
@@ -93,8 +96,6 @@ public class CodeReader {
         string[] lines = script;
         if(hasCompletePreamble){
             string[] linesWithoutPreamble = RemovePreambleBlock(script);
-            ObjectCatcher o = new ObjectCatcher();
-            string json = JsonSerializer.Serialize<ObjectCatcher>(o);
         }
     }
 }
