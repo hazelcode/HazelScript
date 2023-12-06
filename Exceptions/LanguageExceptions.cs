@@ -33,4 +33,10 @@ public class LanguageExceptions {
             line = line
         };
     }
+    public LineNote ImportNotSpecified(int line){
+        return new LinNote {
+            message = "The import is not specified. Check and add it.",
+            line = line
+        };
+    }
 }

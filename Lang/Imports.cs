@@ -16,13 +16,22 @@ public class Imports {
         }
         return null!;
     }
-    public string GetFromLine(string line){
-        string[] parts = line.Split(" ");
-        if(parts.Length == 2){
-            //..
-        } else {
-            //..
+    public string GetValueFromLine(string lineContent, int lineNumber){
+        string[] parts = lineContent.Split(" ");
+        if(parts.Length >= 1 && lineContent){
+            // import 'thing1:thing2' || 'thing "thing1:thing2"         -- EXAMPLE 1
+            // convert to thing1/thing2
+            // import 'thing1:thing2/thing3' || "thing1:thing2/thing3"  -- EXAMPLE 2
+            // convert to thing1/thing2/thing3
+            // import 'thing1:thing2\thing3' || "thing1:thing2\thing3"  -- EXAMPLE 3
+            // convert to thing1/thing2/thing3
+            return parts[1]
+                .Replace(new char[] {'\"', '\''}, "")
+                .Replace(":", "/")
+                .Replace("\\", "/");
         }
-        return "";
+        // return null import, and add an error: the package was not found in, or is bad written.
+        ExceptionManager.ExceptionList.Add(LanguageExceptions.ImportNotSpecified(lineNumber));
+        return null;
     }
 }
